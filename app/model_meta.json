@@ -1,0 +1,22 @@
+{
+  "model": "mobilenet_v2",
+  "input_size": [
+    224,
+    224
+  ],
+  "mean": [
+    0.485,
+    0.456,
+    0.406
+  ],
+  "std": [
+    0.229,
+    0.224,
+    0.225
+  ],
+  "num_classes": 37,
+  "test_accuracy": 0.8855,
+  "test_macro_f1": 0.8841,
+  "torch_ms": 25.2,
+  "onnx_ms": 9.0
+}

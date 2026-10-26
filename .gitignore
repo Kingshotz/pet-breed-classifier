@@ -1,0 +1,16 @@
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.env
+
+# მონაცემები და checkpoint-ები repo-ში არ იდება
+data/
+*.pth
+*.onnx.data
+models/*.onnx
+!models/.gitkeep
+
+.ipynb_checkpoints/
+.pytest_cache/
+.DS_Store

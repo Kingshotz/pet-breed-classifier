@@ -197,5 +197,3 @@ ONNX, ONNX Runtime (ოპტიმიზაცია და inference) · FastA
 Gradio (დემო) · pytest (ტესტები).
 
 ზუსტი ვერსიები: `requirements.txt`, `requirements-train.txt`.
-#   p e t - b r e e d - c l a s s i f i e r  
- 
