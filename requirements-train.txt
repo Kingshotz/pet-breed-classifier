@@ -1,4 +1,4 @@
-# ვარჯიში, შეფასება და ექსპორტი (requirements.txt-ის დამატებით)
+# Training, evaluation and export (in addition to requirements.txt)
 -r requirements.txt
 torch==2.5.1
 torchvision==0.20.1
@@ -7,4 +7,5 @@ matplotlib==3.10.0
 onnx==1.17.0
 onnxscript==0.1.0
 pytest==8.3.4
+httpx==0.28.1
 gradio==5.9.1

@@ -1,5 +1,6 @@
 """API-ის მინიმალური ტესტები: სერვისი იწევა და არასწორ შეყვანას სწორად ამუშავებს."""
 import io
+from pathlib import Path
 
 import pytest
 from fastapi.testclient import TestClient
@@ -8,6 +9,7 @@ from PIL import Image
 from app.main import app
 
 client = TestClient(app)
+MODEL_PATH = Path(__file__).resolve().parent.parent / "models" / "mobilenet_pet.onnx"
 
 
 def make_image_bytes(size=(224, 224), color=(120, 90, 60)):
@@ -33,8 +35,7 @@ def test_predict_rejects_corrupt_image():
     assert response.status_code == 400
 
 
-@pytest.mark.skipif(not __import__("pathlib").Path("models/mobilenet_pet.onnx").exists(),
-                    reason="მოდელის ფაილი არ არის")
+@pytest.mark.skipif(not MODEL_PATH.exists(), reason="მოდელის ფაილი არ არის")
 def test_predict_returns_top_k():
     response = client.post("/predict",
                            files={"file": ("pet.jpg", make_image_bytes(), "image/jpeg")},

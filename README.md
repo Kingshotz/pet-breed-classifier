@@ -32,7 +32,7 @@ pet-breed-classifier/
 ├── demo/gradio_app.py       # ვიზუალური დემო სურათის ატვირთვით
 ├── tests/test_api.py        # API-ის ტესტები
 ├── notebooks/               # ექსპერიმენტების notebook (Colab)
-├── models/                  # .onnx / .pth (repo-ში არ ინახება — იხ. ქვემოთ)
+├── models/                  # mobilenet_pet.onnx (repo-შია); .pth checkpoint-ები არა
 ├── reports/                 # ტექნიკური ანგარიში, confusion matrix, Grad-CAM
 ├── requirements.txt         # მხოლოდ inference/API
 └── requirements-train.txt   # + torch, torchvision, sklearn...
@@ -49,7 +49,7 @@ pet-breed-classifier/
 
 ```bash
 pip install -r requirements.txt
-# მოათავსე mobilenet_pet.onnx საქაღალდეში models/
+# მოდელი (models/mobilenet_pet.onnx) უკვე repo-შია
 uvicorn app.main:app --reload
 ```
 
@@ -101,6 +101,7 @@ Colab-ის უფასო T4-ზე ერთი ექსპერიმე�
 ### 4. ტესტები
 
 ```bash
+pip install -r requirements-train.txt   # pytest და httpx
 pytest -q
 ```
 
@@ -181,12 +182,17 @@ American Pit Bull Terrier-ს precision 0.864, recall კი 0.510 — მოდ
 
 ## გაწვრთნილი მოდელი
 
-`models/mobilenet_pet.onnx` (≈9 MB) და `.pth` checkpoint-ები repo-ში არ ინახება.
-ორი გზა:
+**`models/mobilenet_pet.onnx`** (≈9 MB) repo-შია, ამიტომ `git clone`-ის შემდეგ API მაშინვე მუშაობს.
+PyTorch-ის `.pth` checkpoint-ები repo-ში არ ინახება (`.gitignore`), რადგან API-ს არ სჭირდება.
 
-1. **ჩამოტვირთვა:** იხ. release/ბმული (ან ატვირთე ფაილი `models/`-ში ხელით).
-2. **ხელახლა მიღება:** `python -m src.train --experiment mobilenet && python -m src.export_onnx`
-   — უფასო Colab T4-ზე ჯამში ~5 წუთი.
+მოდელის ხელახლა მიღება ნულიდან:
+
+```bash
+python -m src.train --experiment mobilenet   # -> models/E_mobilenet_v2_best.pth
+python -m src.export_onnx                    # -> models/mobilenet_pet.onnx
+```
+
+უფასო Colab T4-ზე ჯამში ~5 წუთი.
 
 ---
 
